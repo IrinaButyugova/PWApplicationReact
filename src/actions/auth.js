@@ -15,9 +15,8 @@ export const registerAction = ({username, email, password}) => ({
     payload: {username, email, password},
 });
 
-export const registerSuccessAction = ({id_token}) => ({
+export const registerSuccessAction = () => ({
     type: actionTypes.REGISTER_SUCCESS,
-    payload: {id_token},
 });
 
 export const registerFailureAction = ({error}) => ({
@@ -30,9 +29,8 @@ export const loginAction = ({email, password}) => ({
     payload: {email, password},
 });
 
-export const loginSuccessAction = ({id_token}) => ({
+export const loginSuccessAction = () => ({
     type: actionTypes.LOGIN_SUCCESS,
-    payload: {id_token},
 });
 
 export const loginFailureAction = ({error}) => ({
