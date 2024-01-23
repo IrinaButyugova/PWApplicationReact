@@ -3,10 +3,10 @@ import {actionTypes} from "../actions/auth";
 import * as authService from "../services/auth.service";
 import * as persistanseService from "../services/persistanse.service";
 
-function* singUp(action) {
+function* signUp(action) {
     try {
         const {username, email, password} = action.payload;
-        const response = yield call(authService.singUp, username, email, password);
+        const response = yield call(authService.signUp, username, email, password);
         yield put({type: actionTypes.REGISTER_SUCCESS, response});
         persistanseService.set(process.env.REACT_APP_TOKEN_KEY, response.data.id_token);
     } catch (e) {
@@ -14,14 +14,14 @@ function* singUp(action) {
     }
 }
 
-function* watchSingUp() {
-    yield takeLatest(actionTypes.REGISTER, singUp);
+function* watchSignUp() {
+    yield takeLatest(actionTypes.REGISTER, signUp);
 }
 
 function* signIn(action) {
     try {
         const {email, password} = action.payload;
-        const response = yield call(authService.singIn, email, password);
+        const response = yield call(authService.signIn, email, password);
         yield put({type: actionTypes.LOGIN_SUCCESS, response});
         persistanseService.set(process.env.REACT_APP_TOKEN_KEY, response.data.id_token);
     } catch (e) {
@@ -33,5 +33,5 @@ function* watchSignIn() {
     yield takeLatest(actionTypes.LOGIN, signIn);
 }
 
-const AuthSagas = [fork(watchSingUp), fork(watchSignIn)];
+const AuthSagas = [fork(watchSignUp), fork(watchSignIn)];
 export default AuthSagas;

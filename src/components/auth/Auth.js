@@ -1,6 +1,6 @@
 import {useState} from "react";
 import Button from "react-bootstrap/Button";
-import SingUp from "./SingUp";
+import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
 export default function Auth() {
@@ -29,7 +29,7 @@ export default function Auth() {
                 <Button variant="primary" onClick={handleSignIn}>
                     Sign in
                 </Button>
-                <SingUp></SingUp>
+                <SignUp></SignUp>
             </div>
         );
     }
