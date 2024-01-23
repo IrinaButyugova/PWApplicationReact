@@ -50,6 +50,27 @@ export default function auth(state = INIT_STATE, action) {
                 error: action.payload.error,
             };
         }
+        case actionTypes.LOGOUT: {
+            return {
+                ...state,
+                isSubmitting: true,
+            };
+        }
+        case actionTypes.LOGOUT_SUCCESS: {
+            return {
+                ...state,
+                isSubmitting: false,
+                isLoggedIn: false,
+                error: null,
+            };
+        }
+        case actionTypes.LOGOUT_FAILURE: {
+            return {
+                ...state,
+                isSubmitting: false,
+                error: action.payload.error,
+            };
+        }
         default:
             return state;
     }

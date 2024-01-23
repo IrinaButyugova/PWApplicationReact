@@ -33,5 +33,18 @@ function* watchSignIn() {
     yield takeLatest(actionTypes.LOGIN, signIn);
 }
 
-const AuthSagas = [fork(watchSignUp), fork(watchSignIn)];
+function* logout(action) {
+    try {
+        persistanseService.set(process.env.REACT_APP_TOKEN_KEY, "");
+        yield put({type: actionTypes.LOGOUT_SUCCESS});
+    } catch {
+        yield put({type: actionTypes.LOGIN_FAILURE, payload: {error: "logout failure"}});
+    }
+}
+
+function* watchLogout() {
+    yield takeLatest(actionTypes.LOGOUT, logout);
+}
+
+const AuthSagas = [fork(watchSignUp), fork(watchSignIn), fork(watchLogout)];
 export default AuthSagas;

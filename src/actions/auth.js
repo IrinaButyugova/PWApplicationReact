@@ -5,6 +5,9 @@ export const actionTypes = {
     LOGIN: "login",
     LOGIN_SUCCESS: "login_success",
     LOGIN_FAILURE: "login_failure",
+    LOGOUT: "logout",
+    LOGOUT_SUCCESS: "logout_success",
+    LOGOUT_FAILURE: "logout_failure",
 };
 
 export const registerAction = ({username, email, password}) => ({
@@ -34,5 +37,18 @@ export const loginSuccessAction = ({id_token}) => ({
 
 export const loginFailureAction = ({error}) => ({
     type: actionTypes.LOGIN_FAILURE,
+    payload: {error},
+});
+
+export const logoutAction = () => ({
+    type: actionTypes.LOGOUT,
+});
+
+export const logoutSuccessAction = () => ({
+    type: actionTypes.LOGOUT_SUCCESS,
+});
+
+export const logoutFailureAction = ({error}) => ({
+    type: actionTypes.LOGOUT_FAILURE,
     payload: {error},
 });
