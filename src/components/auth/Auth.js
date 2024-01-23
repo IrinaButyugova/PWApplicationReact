@@ -28,7 +28,7 @@ function Auth() {
             <ErrorMessage errorMessage={auth.error}></ErrorMessage>
 
             {auth.isLoggedIn ? (
-                <Button variant="primary" onClick={handleLogout}>
+                <Button variant="primary" onClick={handleLogout} disabled={auth.isSubmitting}>
                     Logout
                 </Button>
             ) : signIn ? (
