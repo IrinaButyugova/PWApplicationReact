@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import {logoutAction} from "../../actions/auth";
+import ErrorMessage from "../shared/ErrorMessage";
 
 function Auth() {
     const [signIn, setSignIn] = useState(true);
@@ -22,31 +23,31 @@ function Auth() {
         dispatch(logoutAction());
     };
 
-    if (auth.isLoggedIn) {
-        return (
-            <Button variant="primary" onClick={handleLogout}>
-                Logout
-            </Button>
-        );
-    } else if (signIn) {
-        return (
-            <div>
-                <Button variant="primary" onClick={handleSignUp}>
-                    Sign up
+    return (
+        <div>
+            <ErrorMessage errorMessage={auth.error}></ErrorMessage>
+
+            {auth.isLoggedIn ? (
+                <Button variant="primary" onClick={handleLogout}>
+                    Logout
                 </Button>
-                <SignIn></SignIn>
-            </div>
-        );
-    } else {
-        return (
-            <div>
-                <Button variant="primary" onClick={handleSignIn}>
-                    Sign in
-                </Button>
-                <SignUp></SignUp>
-            </div>
-        );
-    }
+            ) : signIn ? (
+                <div>
+                    <Button variant="primary" onClick={handleSignUp}>
+                        Sign up
+                    </Button>
+                    <SignIn></SignIn>
+                </div>
+            ) : (
+                <div>
+                    <Button variant="primary" onClick={handleSignIn}>
+                        Sign in
+                    </Button>
+                    <SignUp></SignUp>
+                </div>
+            )}
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

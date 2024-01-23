@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {loginAction} from "../../actions/auth";
-import ErrorMessage from "../shared/ErrorMessage";
 
 const schema = yup.object({
     email: yup.string().required("Email is required").email("Email is invalid"),
@@ -30,7 +29,6 @@ function SignIn() {
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
             <h2>Sign In</h2>
-            <ErrorMessage errorMessage={auth.error}></ErrorMessage>
             <Form.Group className="mb-3" controlId="formEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="text" {...register("email")} isInvalid={!!errors.email} />

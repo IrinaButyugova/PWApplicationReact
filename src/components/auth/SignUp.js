@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {registerAction} from "../../actions/auth";
-import ErrorMessage from "../shared/ErrorMessage";
 
 const schema = yup.object({
     username: yup.string().required("Name is required"),
@@ -35,7 +34,6 @@ function SignUp() {
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
             <h2>Sign Up</h2>
-            <ErrorMessage errorMessage={auth.error}></ErrorMessage>
             <Form.Group className="mb-3" controlId="formUsername">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" {...register("username")} isInvalid={!!errors.username} />
