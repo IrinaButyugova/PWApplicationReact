@@ -25,7 +25,7 @@ function* createTransaction(action) {
     try {
         const {name, amount} = action.payload;
         const response = yield call(dataService.createTransaction, name, amount);
-        yield put(createTransactionSuccessAction(response.data));
+        yield put(createTransactionSuccessAction(response.data.trans_token));
     } catch (e) {
         yield put(createTransactionFailureAction(e.response.data));
     }

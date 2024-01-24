@@ -1,4 +1,5 @@
-import {actionTypes} from "../actions/data";
+import {actionTypes as dataActionTypes} from "../actions/data";
+import {actionTypes as transactionCreationActionTypes} from "../actions/transactionCreation";
 
 const INIT_STATE = {
     isLoading: false,
@@ -9,13 +10,13 @@ const INIT_STATE = {
 
 export default function data(state = INIT_STATE, action) {
     switch (action.type) {
-        case actionTypes.GET_CURRENT_USER: {
+        case dataActionTypes.GET_CURRENT_USER: {
             return {
                 ...state,
                 isLoading: true,
             };
         }
-        case actionTypes.GET_CURRENT_USER_SUCCESS: {
+        case dataActionTypes.GET_CURRENT_USER_SUCCESS: {
             return {
                 ...state,
                 isLoading: false,
@@ -23,20 +24,20 @@ export default function data(state = INIT_STATE, action) {
                 error: null,
             };
         }
-        case actionTypes.GET_CURRENT_USER_FAILURE: {
+        case dataActionTypes.GET_CURRENT_USER_FAILURE: {
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload.error,
             };
         }
-        case actionTypes.GET_TRANSACTIONS: {
+        case dataActionTypes.GET_TRANSACTIONS: {
             return {
                 ...state,
                 isLoading: true,
             };
         }
-        case actionTypes.GET_TRANSACTIONS_SUCCESS: {
+        case dataActionTypes.GET_TRANSACTIONS_SUCCESS: {
             return {
                 ...state,
                 isLoading: false,
@@ -44,14 +45,23 @@ export default function data(state = INIT_STATE, action) {
                 error: null,
             };
         }
-        case actionTypes.GET_TRANSACTIONS_FAILURE: {
+        case dataActionTypes.GET_TRANSACTIONS_FAILURE: {
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload.error,
             };
         }
-
+        case transactionCreationActionTypes.CREATE_TRANSACTION_SUCCESS: {
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    balance: action.payload.transaction.balance,
+                },
+                transactions: [action.payload.transaction, ...state.transactions],
+            };
+        }
         default:
             return state;
     }
