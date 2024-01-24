@@ -3,6 +3,23 @@ import {actionTypes} from "../actions/auth";
 import * as authService from "../services/auth.service";
 import * as persistanseService from "../services/persistanse.service";
 
+function* checkAuth() {
+    try {
+        var isLoggedIn = false;
+        const token = persistanseService.get(process.env.REACT_APP_TOKEN_KEY);
+        if (token) {
+            isLoggedIn = true;
+        }
+        yield put({type: actionTypes.AUTH_CHECK_SUCCESS, payload: {isLoggedIn: isLoggedIn}});
+    } catch (e) {
+        yield put({type: actionTypes.AUTH_CHECK_FAILURE, payload: {error: e}});
+    }
+}
+
+function* watchCheckAuth() {
+    yield takeLatest(actionTypes.AUTH_CHECK, checkAuth);
+}
+
 function* signUp(action) {
     try {
         const {username, email, password} = action.payload;
@@ -46,5 +63,5 @@ function* watchLogout() {
     yield takeLatest(actionTypes.LOGOUT, logout);
 }
 
-const AuthSagas = [fork(watchSignUp), fork(watchSignIn), fork(watchLogout)];
+const AuthSagas = [fork(watchSignUp), fork(watchSignIn), fork(watchLogout), fork(watchCheckAuth)];
 export default AuthSagas;

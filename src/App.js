@@ -1,12 +1,12 @@
 import "./App.css";
 import Container from "react-bootstrap/Container";
-import Auth from "./components/auth/Auth";
+import Main from "./components/main";
 
 function App() {
     return (
         <Container fluid="sm">
             <h2>PWApplication</h2>
-            <Auth></Auth>
+            <Main></Main>
         </Container>
     );
 }

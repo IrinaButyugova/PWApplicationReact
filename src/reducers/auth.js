@@ -8,6 +8,28 @@ const INIT_STATE = {
 
 export default function auth(state = INIT_STATE, action) {
     switch (action.type) {
+        case actionTypes.AUTH_CHECK: {
+            return {
+                ...state,
+                isSubmitting: true,
+            };
+        }
+        case actionTypes.AUTH_CHECK_SUCCESS: {
+            return {
+                ...state,
+                isSubmitting: false,
+                isLoggedIn: action.payload.isLoggedIn,
+                error: null,
+            };
+        }
+        case actionTypes.AUTH_CHECK_FAILURE: {
+            return {
+                ...state,
+                isSubmitting: false,
+                isLoggedIn: false,
+                error: action.payload.error,
+            };
+        }
         case actionTypes.REGISTER: {
             return {
                 ...state,
