@@ -24,7 +24,7 @@ function Auth() {
     };
 
     return (
-        <div>
+        <div className="mb-3">
             <ErrorMessage errorMessage={auth.error}></ErrorMessage>
 
             {auth.isLoggedIn ? (

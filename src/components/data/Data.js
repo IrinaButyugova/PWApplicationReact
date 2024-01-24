@@ -2,6 +2,7 @@ import {useEffect} from "react";
 import {connect, useSelector, useDispatch} from "react-redux";
 import Table from "react-bootstrap/Table";
 import {getCurrentUserAction, getTransactionsAction} from "../../actions/data";
+import ErrorMessage from "../shared/ErrorMessage";
 
 function Data() {
     const data = useSelector((state) => state.data);
@@ -14,6 +15,7 @@ function Data() {
 
     return (
         <div>
+            <ErrorMessage errorMessage={data.error}></ErrorMessage>
             <h4>
                 {data.currentUser?.name} <br /> balance {data.currentUser?.balance.toFixed(2)}
             </h4>
