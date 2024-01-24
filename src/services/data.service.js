@@ -17,3 +17,11 @@ export const getCurrentUser = () => {
 export const getTransactions = () => {
     return createInstance().get("transactions");
 };
+
+export const getUsers = () => {
+    return createInstance().post("users/list", {filter: " "});
+};
+
+export const createTransaction = (name, amount) => {
+    return createInstance().post("transactions", {name: name, amount: amount});
+};
