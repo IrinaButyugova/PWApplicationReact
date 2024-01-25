@@ -52,6 +52,13 @@ export default function createTransaction(state = INIT_STATE, action) {
                 error: action.payload.error,
             };
         }
+        case actionTypes.CLEAN: {
+            return {
+                ...state,
+                isCreated: false,
+                error: null,
+            };
+        }
         default:
             return state;
     }

@@ -5,6 +5,7 @@ export const actionTypes = {
     CREATE_TRANSACTION: "create_transaction",
     CREATE_TRANSACTION_SUCCESS: "create_transaction_success",
     CREATE_TRANSACTION_FAILURE: "create_transaction_failure",
+    CLEAN: "clean",
 };
 
 export const getUsersAction = () => ({
@@ -34,4 +35,8 @@ export const createTransactionSuccessAction = (transaction) => ({
 export const createTransactionFailureAction = (error) => ({
     type: actionTypes.CREATE_TRANSACTION_FAILURE,
     payload: {error},
+});
+
+export const cleanAction = () => ({
+    type: actionTypes.CLEAN,
 });
