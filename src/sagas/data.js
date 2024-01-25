@@ -20,7 +20,7 @@ function* getTransactions() {
         const response = yield call(dataService.getTransactions);
         yield put({
             type: actionTypes.GET_TRANSACTIONS_SUCCESS,
-            payload: {transactions: response.data.trans_token.reverse()},
+            payload: {transactions: response.data.trans_token},
         });
     } catch (e) {
         yield put({type: actionTypes.GET_TRANSACTIONS_FAILURE, payload: {error: e.response.data}});
