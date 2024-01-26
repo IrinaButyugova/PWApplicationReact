@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 import createSagaMiddleware from "redux-saga";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
