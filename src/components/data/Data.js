@@ -8,7 +8,7 @@ import CreateTransaction from "./CreateTransaction";
 import Button from "react-bootstrap/esm/Button";
 import {cleanAction} from "../../actions/transactionCreation";
 import FilterForm from "./FilterForm";
-import * as dateHelperService from "../../services/dateHelper.service";
+import * as transactionsService from "../../services/transactions.service";
 
 function Data() {
     const [showModal, setShowModal] = useState(false);
@@ -17,8 +17,6 @@ function Data() {
     const [sortOrder, setSortOrder] = useState("desc");
     const [sortColumn, setSortColumn] = useState("date");
     const [filter, setFilter] = useState();
-
-    const compare = (v1, v2) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
 
     const data = useSelector((state) => state.data);
     const dispatch = useDispatch();
@@ -62,60 +60,9 @@ function Data() {
     };
 
     const buildTransactions = () => {
-        var newTransactions = filterTransactions(data.transactions);
-        newTransactions = sortTransactions(newTransactions);
+        var newTransactions = transactionsService.filterTransactions(data.transactions, filter);
+        newTransactions = transactionsService.sortTransactions(newTransactions, sortColumn, sortOrder);
         setTransactions(newTransactions);
-    };
-
-    const filterTransactions = (transactions) => {
-        if (!filter) {
-            return transactions;
-        }
-
-        var newTransactions = transactions;
-
-        if (filter.recipient !== "") {
-            newTransactions = newTransactions.filter((x) => {
-                return x.username.includes(filter.recipient);
-            });
-        }
-
-        if (filter.startAmount !== "") {
-            newTransactions = newTransactions.filter((x) => {
-                return x.amount >= filter.startAmount;
-            });
-        }
-        if (filter.endAmount !== "") {
-            newTransactions = newTransactions.filter((x) => {
-                return x.amount <= filter.endAmount;
-            });
-        }
-
-        if (filter.startDate || filter.endDate) {
-            if (filter.startDate) {
-                newTransactions = newTransactions.filter((x) => {
-                    return dateHelperService.parseToDate(x.date) >= filter.startDate;
-                });
-            }
-            if (filter.endDate) {
-                var endDate = structuredClone(filter.endDate);
-                endDate.setHours(endDate.getHours() + 23);
-                endDate.setMinutes(endDate.getMinutes() + 59);
-                endDate.setSeconds(endDate.getSeconds() + 59);
-                newTransactions = newTransactions.filter((x) => {
-                    return dateHelperService.parseToDate(x.date) <= endDate;
-                });
-            }
-        }
-
-        return newTransactions;
-    };
-
-    const sortTransactions = (transactions) => {
-        return [...transactions]?.sort((a, b) => {
-            const res = compare(a[sortColumn], b[sortColumn]);
-            return sortOrder === "asc" ? res : -res;
-        });
     };
 
     const handleFilter = (filter) => {
