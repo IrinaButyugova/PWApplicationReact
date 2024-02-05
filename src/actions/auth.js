@@ -1,7 +1,7 @@
 export const actionTypes = {
     AUTH_CHECK: "auth_check",
     AUTH_CHECK_SUCCESS: "auth_check_succeess",
-    AUTH_CHECK_FAILURE: "auth_check_succeess",
+    AUTH_CHECK_FAILURE: "auth_check_failure",
     REGISTER: "register",
     REGISTER_SUCCESS: "register_success",
     REGISTER_FAILURE: "register_failure",
@@ -17,13 +17,13 @@ export const authCheckAction = () => ({
     type: actionTypes.AUTH_CHECK,
 });
 
-export const authCheckSuccessAction = ({isLoggedIn}) => ({
+export const authCheckSuccessAction = (isLoggedIn) => ({
     type: actionTypes.AUTH_CHECK_SUCCESS,
-    payload: {isLoggedIn},
+    payload: {isLoggedIn: isLoggedIn},
 });
 
-export const authCheckFailureAction = ({error}) => ({
-    type: actionTypes.AUTH_CHECK,
+export const authCheckFailureAction = (error) => ({
+    type: actionTypes.AUTH_CHECK_FAILURE,
     payload: {error},
 });
 
@@ -36,7 +36,7 @@ export const registerSuccessAction = () => ({
     type: actionTypes.REGISTER_SUCCESS,
 });
 
-export const registerFailureAction = ({error}) => ({
+export const registerFailureAction = (error) => ({
     type: actionTypes.REGISTER_FAILURE,
     payload: {error},
 });
@@ -50,7 +50,7 @@ export const loginSuccessAction = () => ({
     type: actionTypes.LOGIN_SUCCESS,
 });
 
-export const loginFailureAction = ({error}) => ({
+export const loginFailureAction = (error) => ({
     type: actionTypes.LOGIN_FAILURE,
     payload: {error},
 });
@@ -63,7 +63,7 @@ export const logoutSuccessAction = () => ({
     type: actionTypes.LOGOUT_SUCCESS,
 });
 
-export const logoutFailureAction = ({error}) => ({
+export const logoutFailureAction = (error) => ({
     type: actionTypes.LOGOUT_FAILURE,
     payload: {error},
 });

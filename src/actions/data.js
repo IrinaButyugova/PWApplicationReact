@@ -11,9 +11,9 @@ export const getCurrentUserAction = () => ({
     type: actionTypes.GET_CURRENT_USER,
 });
 
-export const getCurrentUserSuccessAction = (id, name, email, balance) => ({
+export const getCurrentUserSuccessAction = (currentUser) => ({
     type: actionTypes.GET_CURRENT_USER_SUCCESS,
-    payload: {currentuser: {id, name, email, balance}},
+    payload: {currentUser: currentUser},
 });
 
 export const getCurrentUserFailureAction = (error) => ({
@@ -25,9 +25,9 @@ export const getTransactionsAction = () => ({
     type: actionTypes.GET_TRANSACTIONS,
 });
 
-export const getTransactionsSuccessAction = ([{id, date, username, amount, balance}]) => ({
+export const getTransactionsSuccessAction = (transactions) => ({
     type: actionTypes.GET_TRANSACTIONS_SUCCESS,
-    payload: {transactions: [{id, date, username, amount, balance}]},
+    payload: {transactions: transactions},
 });
 
 export const getTransactionsFailureAction = (error) => ({

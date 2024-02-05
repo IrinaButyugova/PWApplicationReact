@@ -1,5 +1,15 @@
 import {takeLatest, call, fork, put} from "redux-saga/effects";
-import {actionTypes} from "../actions/auth";
+import {
+    actionTypes,
+    authCheckSuccessAction,
+    authCheckFailureAction,
+    registerSuccessAction,
+    registerFailureAction,
+    loginSuccessAction,
+    loginFailureAction,
+    logoutSuccessAction,
+    logoutFailureAction,
+} from "../actions/auth";
 import * as authService from "../services/auth.service";
 import * as persistanseService from "../services/persistanse.service";
 
@@ -10,9 +20,9 @@ function* checkAuth() {
         if (token) {
             isLoggedIn = true;
         }
-        yield put({type: actionTypes.AUTH_CHECK_SUCCESS, payload: {isLoggedIn: isLoggedIn}});
+        yield put(authCheckSuccessAction(isLoggedIn));
     } catch (e) {
-        yield put({type: actionTypes.AUTH_CHECK_FAILURE, payload: {error: e}});
+        yield put(authCheckFailureAction(e.message));
     }
 }
 
@@ -24,10 +34,10 @@ function* signUp(action) {
     try {
         const {username, email, password} = action.payload;
         const response = yield call(authService.signUp, username, email, password);
-        yield put({type: actionTypes.REGISTER_SUCCESS});
+        yield put(registerSuccessAction());
         persistanseService.set(process.env.REACT_APP_TOKEN_KEY, response.data.id_token);
     } catch (e) {
-        yield put({type: actionTypes.REGISTER_FAILURE, payload: {error: e.response.data}});
+        yield put(registerFailureAction(e.response.data));
     }
 }
 
@@ -40,9 +50,9 @@ function* signIn(action) {
         const {email, password} = action.payload;
         const response = yield call(authService.signIn, email, password);
         persistanseService.set(process.env.REACT_APP_TOKEN_KEY, response.data.id_token);
-        yield put({type: actionTypes.LOGIN_SUCCESS});
+        yield put(loginSuccessAction());
     } catch (e) {
-        yield put({type: actionTypes.LOGIN_FAILURE, payload: {error: e.response.data}});
+        yield put(loginFailureAction(e.response.data));
     }
 }
 
@@ -53,9 +63,9 @@ function* watchSignIn() {
 function* logout(action) {
     try {
         persistanseService.set(process.env.REACT_APP_TOKEN_KEY, "");
-        yield put({type: actionTypes.LOGOUT_SUCCESS});
+        yield put(logoutSuccessAction());
     } catch {
-        yield put({type: actionTypes.LOGIN_FAILURE, payload: {error: "logout failure"}});
+        yield put(logoutFailureAction("logout failure"));
     }
 }
 

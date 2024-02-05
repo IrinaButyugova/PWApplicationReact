@@ -1,7 +1,7 @@
 import {takeEvery, call, fork, put} from "redux-saga/effects";
-import {actionTypes} from "../actions/transactionCreation";
 import * as dataService from "../services/data.service";
 import {
+    actionTypes,
     getUsersSuccessAction,
     getUsersFailureAction,
     createTransactionSuccessAction,

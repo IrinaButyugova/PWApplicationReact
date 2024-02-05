@@ -1,13 +1,19 @@
 import {takeEvery, call, fork, put} from "redux-saga/effects";
-import {actionTypes} from "../actions/data";
+import {
+    actionTypes,
+    getCurrentUserSuccessAction,
+    getCurrentUserFailureAction,
+    getTransactionsSuccessAction,
+    getTransactionsFailureAction,
+} from "../actions/data";
 import * as dataService from "../services/data.service";
 
 function* getCurrentUser() {
     try {
         const response = yield call(dataService.getCurrentUser);
-        yield put({type: actionTypes.GET_CURRENT_USER_SUCCESS, payload: {currentUser: response.data.user_info_token}});
+        yield put(getCurrentUserSuccessAction(response.data.user_info_token));
     } catch (e) {
-        yield put({type: actionTypes.GET_CURRENT_USER_FAILURE, payload: {error: e.response.data}});
+        yield put(getCurrentUserFailureAction(e.response.data));
     }
 }
 
@@ -18,12 +24,9 @@ function* watchGetCurrentUser() {
 function* getTransactions() {
     try {
         const response = yield call(dataService.getTransactions);
-        yield put({
-            type: actionTypes.GET_TRANSACTIONS_SUCCESS,
-            payload: {transactions: response.data.trans_token},
-        });
+        yield put(getTransactionsSuccessAction(response.data.trans_token));
     } catch (e) {
-        yield put({type: actionTypes.GET_TRANSACTIONS_FAILURE, payload: {error: e.response.data}});
+        yield put(getTransactionsFailureAction(e.response.data));
     }
 }
 
