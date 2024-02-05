@@ -28,7 +28,7 @@ function SignUp() {
     const dispatch = useDispatch();
 
     const onSubmit = (data) => {
-        dispatch(registerAction({username: data.username, email: data.email, password: data.password}));
+        dispatch(registerAction(data.username, data.email, data.password));
     };
 
     return (

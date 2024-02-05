@@ -27,7 +27,7 @@ export const authCheckFailureAction = (error) => ({
     payload: {error},
 });
 
-export const registerAction = ({username, email, password}) => ({
+export const registerAction = (username, email, password) => ({
     type: actionTypes.REGISTER,
     payload: {username, email, password},
 });
@@ -41,7 +41,7 @@ export const registerFailureAction = (error) => ({
     payload: {error},
 });
 
-export const loginAction = ({email, password}) => ({
+export const loginAction = (email, password) => ({
     type: actionTypes.LOGIN,
     payload: {email, password},
 });

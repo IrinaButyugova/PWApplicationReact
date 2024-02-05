@@ -23,7 +23,7 @@ function SignIn() {
     const dispatch = useDispatch();
 
     const onSubmit = (data) => {
-        dispatch(loginAction({email: data.email, password: data.password}));
+        dispatch(loginAction(data.email, data.password));
     };
 
     return (
