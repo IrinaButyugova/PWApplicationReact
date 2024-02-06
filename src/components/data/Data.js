@@ -19,6 +19,7 @@ function Data() {
     const [filter, setFilter] = useState();
 
     const data = useSelector((state) => state.data);
+    const createTransactionData = useSelector((state) => state.createTransactionData);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,13 +34,18 @@ function Data() {
     }, [data.transactions, sortOrder, sortColumn, filter]);
 
     const handleShowModal = (username, amount) => {
-        setTransactionData({recipient: username, amount: amount});
+        const transactionRecipient = Array(
+            createTransactionData.users.filter((x) => {
+                return x.name === username;
+            })[0]
+        );
+        setTransactionData({recipient: transactionRecipient, amount: amount});
         setShowModal(true);
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
-        setTransactionData({recipient: "", amount: "0"});
+        setTransactionData({recipient: [], amount: ""});
         dispatch(cleanAction());
     };
 
@@ -132,6 +138,7 @@ function Data() {
 const mapStateToProps = (state) => {
     return {
         data: state.data,
+        createTransactionData: state.createTransactionData,
     };
 };
 
