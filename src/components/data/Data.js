@@ -14,8 +14,8 @@ function Data() {
     const [showModal, setShowModal] = useState(false);
     const [transactionData, setTransactionData] = useState({recipient: "", amount: ""});
     const [transactions, setTransactions] = useState(null);
-    const [sortOrder, setSortOrder] = useState("desc");
-    const [sortColumn, setSortColumn] = useState("date");
+    const [sortOrder, setSortOrder] = useState(transactionsService.sortOrders.DESC);
+    const [sortColumn, setSortColumn] = useState(transactionsService.sortColumns.DATE);
     const [filter, setFilter] = useState();
 
     const data = useSelector((state) => state.data);
@@ -58,10 +58,14 @@ function Data() {
 
     const handleSort = (column) => {
         if (sortColumn === column) {
-            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+            setSortOrder(
+                sortOrder === transactionsService.sortOrders.ASC
+                    ? transactionsService.sortOrders.DESC
+                    : transactionsService.sortOrders.ASC
+            );
         } else {
             setSortColumn(column);
-            setSortOrder("asc");
+            setSortOrder(transactionsService.sortOrders.ASC);
         }
     };
 
@@ -94,22 +98,28 @@ function Data() {
                 <thead>
                     <tr>
                         <th>
-                            <Button variant="link" onClick={() => handleSort("date")}>
+                            <Button variant="link" onClick={() => handleSort(transactionsService.sortColumns.DATE)}>
                                 Date
                             </Button>
-                            {sortColumn === "date" && (sortOrder === "asc" ? <FaArrowUp /> : <FaArrowDown />)}
+                            {sortColumn === transactionsService.sortColumns.DATE &&
+                                (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
                         <th>
-                            <Button variant="link" onClick={() => handleSort("username")}>
+                            <Button
+                                variant="link"
+                                onClick={() => handleSort(transactionsService.sortColumns.USER_NAME)}
+                            >
                                 Correspondent Name
                             </Button>
-                            {sortColumn === "username" && (sortOrder === "asc" ? <FaArrowUp /> : <FaArrowDown />)}
+                            {sortColumn === transactionsService.sortColumns.USER_NAME &&
+                                (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
                         <th>
-                            <Button variant="link" onClick={() => handleSort("amount")}>
+                            <Button variant="link" onClick={() => handleSort(transactionsService.sortColumns.AMOUTN)}>
                                 Amount
                             </Button>
-                            {sortColumn === "amount" && (sortOrder === "asc" ? <FaArrowUp /> : <FaArrowDown />)}
+                            {sortColumn === transactionsService.sortColumns.AMOUTN &&
+                                (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
                         <th>Balance</th>
                         <th></th>

@@ -1,5 +1,16 @@
 import * as dateHelperService from "./dateHelper.service";
 
+export const sortColumns = {
+    DATE: "date",
+    USER_NAME: "username",
+    AMOUTN: "amount",
+};
+
+export const sortOrders = {
+    ASC: "asc",
+    DESC: "desc",
+};
+
 export const filterTransactions = (transactions, filter) => {
     if (!filter) {
         return transactions;
@@ -48,7 +59,12 @@ const compare = (v1, v2) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
 
 export const sortTransactions = (transactions, sortColumn, sortOrder) => {
     return [...transactions]?.sort((a, b) => {
-        const res = compare(a[sortColumn], b[sortColumn]);
-        return sortOrder === "asc" ? res : -res;
+        var res = 0;
+        if (sortColumn === sortColumns.DATE) {
+            res = compare(dateHelperService.parseToDate(a[sortColumn]), dateHelperService.parseToDate(b[sortColumn]));
+        } else {
+            res = compare(a[sortColumn], b[sortColumn]);
+        }
+        return sortOrder === sortOrders.ASC ? res : -res;
     });
 };
