@@ -3,6 +3,7 @@ import {connect, useSelector, useDispatch} from "react-redux";
 import Auth from "./auth/Auth";
 import Data from "./data/Data";
 import {authCheckAction} from "../actions/auth";
+import ErrorBoundary from "../components/shared/ErrorBoundary";
 
 function Main() {
     const auth = useSelector((state) => state.auth);
@@ -13,10 +14,12 @@ function Main() {
     }, []);
 
     return (
-        <div>
-            <Auth></Auth>
-            {auth.isLoggedIn && <Data></Data>}
-        </div>
+        <>
+            <ErrorBoundary>
+                <Auth></Auth>
+                {auth.isLoggedIn && <Data></Data>}
+            </ErrorBoundary>
+        </>
     );
 }
 
