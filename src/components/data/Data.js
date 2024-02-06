@@ -117,10 +117,10 @@ function Data() {
                                 (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
                         <th>
-                            <Button variant="link" onClick={() => handleSort(transactionsService.sortColumns.AMOUTN)}>
+                            <Button variant="link" onClick={() => handleSort(transactionsService.sortColumns.AMOUNT)}>
                                 Amount
                             </Button>
-                            {sortColumn === transactionsService.sortColumns.AMOUTN &&
+                            {sortColumn === transactionsService.sortColumns.AMOUNT &&
                                 (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
                         <th>Balance</th>

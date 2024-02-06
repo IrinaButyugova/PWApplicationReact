@@ -3,7 +3,7 @@ import * as dateHelperService from "./dateHelper.service";
 export const sortColumns = {
     DATE: "date",
     USER_NAME: "username",
-    AMOUTN: "amount",
+    AMOUNT: "amount",
 };
 
 export const sortOrders = {
