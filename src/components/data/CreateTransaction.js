@@ -10,6 +10,7 @@ import {Typeahead} from "react-bootstrap-typeahead";
 import {getUsersAction, createTransactionAction} from "../../actions/transactionCreation";
 import ErrorMessage from "../shared/ErrorMessage";
 import SuccessMessage from "../shared/SuccessMessage";
+import Loading from "../shared/Loading";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 const RECIPIENT_ERROR_MESSAGE = "Recipient is required";
@@ -91,7 +92,7 @@ function CreateTransaction({showModal, transactionData, handleCloseModal}) {
                 {createTransactionData.isCreated === true && (
                     <SuccessMessage successMessage="Transaction created successfully"></SuccessMessage>
                 )}
-
+                <Loading isLoading={createTransactionData.isLoading}></Loading>
                 <ErrorMessage errorMessage={createTransactionData.error}></ErrorMessage>
                 <Form>
                     <Form.Group className="mb-3" controlId="formRecipient">

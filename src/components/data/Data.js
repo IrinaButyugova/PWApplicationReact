@@ -9,6 +9,7 @@ import Button from "react-bootstrap/esm/Button";
 import {cleanAction} from "../../actions/transactionCreation";
 import FilterForm from "./FilterForm";
 import * as transactionsService from "../../services/transactions.service";
+import Loading from "../shared/Loading";
 
 function Data() {
     const [showModal, setShowModal] = useState(false);
@@ -81,6 +82,7 @@ function Data() {
 
     return (
         <>
+            <Loading isLoading={data.isLoading}></Loading>
             <ErrorMessage errorMessage={data.error}></ErrorMessage>
             <h4 className="mb-3">
                 {data.currentUser?.name} <br /> balance {data.currentUser?.balance.toFixed(2)}

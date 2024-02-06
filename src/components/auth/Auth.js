@@ -5,6 +5,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import {logoutAction} from "../../actions/auth";
 import ErrorMessage from "../shared/ErrorMessage";
+import Loading from "../shared/Loading";
 
 function Auth() {
     const [signIn, setSignIn] = useState(true);
@@ -25,6 +26,7 @@ function Auth() {
 
     return (
         <div className="mb-3">
+            <Loading isLoading={auth.isSubmitting}></Loading>
             <ErrorMessage errorMessage={auth.error}></ErrorMessage>
 
             {auth.isLoggedIn ? (
