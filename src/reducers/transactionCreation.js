@@ -13,6 +13,7 @@ export default function createTransaction(state = INIT_STATE, action) {
             return {
                 ...state,
                 isLoading: true,
+                error: null,
             };
         }
         case actionTypes.GET_USERS_SUCCESS: {
@@ -20,7 +21,6 @@ export default function createTransaction(state = INIT_STATE, action) {
                 ...state,
                 isLoading: false,
                 users: action.payload.users,
-                error: null,
             };
         }
         case actionTypes.GET_USERS_FAILURE: {
@@ -35,6 +35,7 @@ export default function createTransaction(state = INIT_STATE, action) {
                 ...state,
                 isLoading: true,
                 isCreated: false,
+                error: null,
             };
         }
         case actionTypes.CREATE_TRANSACTION_SUCCESS: {
@@ -42,7 +43,6 @@ export default function createTransaction(state = INIT_STATE, action) {
                 ...state,
                 isLoading: false,
                 isCreated: true,
-                error: null,
             };
         }
         case actionTypes.CREATE_TRANSACTION_FAILURE: {

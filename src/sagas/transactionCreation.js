@@ -7,12 +7,18 @@ import {
     createTransactionSuccessAction,
     createTransactionFailureAction,
 } from "../actions/transactionCreation";
+import {authCheckAction} from "../actions/auth";
+import * as persistanseService from "../services/persistanse.service";
 
 function* getUsers() {
     try {
         const response = yield call(dataService.getUsers);
         yield put(getUsersSuccessAction(response.data));
     } catch (e) {
+        if(e.response.status === 401){
+            persistanseService.set(process.env.REACT_APP_TOKEN_KEY, "");
+            yield put(authCheckAction());
+        }
         yield put(getUsersFailureAction(e.response.data));
     }
 }
@@ -27,6 +33,10 @@ function* createTransaction(action) {
         const response = yield call(dataService.createTransaction, name, amount);
         yield put(createTransactionSuccessAction(response.data.trans_token));
     } catch (e) {
+        if(e.response.status === 401){
+            persistanseService.set(process.env.REACT_APP_TOKEN_KEY, "");
+            yield put(authCheckAction());
+        }
         yield put(createTransactionFailureAction(e.response.data));
     }
 }

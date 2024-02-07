@@ -14,6 +14,7 @@ export default function data(state = INIT_STATE, action) {
             return {
                 ...state,
                 isLoading: true,
+                error: null,
             };
         }
         case dataActionTypes.GET_CURRENT_USER_SUCCESS: {
@@ -21,7 +22,6 @@ export default function data(state = INIT_STATE, action) {
                 ...state,
                 isLoading: false,
                 currentUser: action.payload.currentUser,
-                error: null,
             };
         }
         case dataActionTypes.GET_CURRENT_USER_FAILURE: {
@@ -35,6 +35,7 @@ export default function data(state = INIT_STATE, action) {
             return {
                 ...state,
                 isLoading: true,
+                error: null,
             };
         }
         case dataActionTypes.GET_TRANSACTIONS_SUCCESS: {
@@ -42,7 +43,6 @@ export default function data(state = INIT_STATE, action) {
                 ...state,
                 isLoading: false,
                 transactions: action.payload.transactions,
-                error: null,
             };
         }
         case dataActionTypes.GET_TRANSACTIONS_FAILURE: {

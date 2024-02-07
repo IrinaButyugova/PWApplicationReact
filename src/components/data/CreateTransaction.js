@@ -38,6 +38,7 @@ const schema = yup
 .default(null);
 
 function CreateTransaction({showModal, transactionData, handleCloseModal}) {
+    const data = useSelector((state) => state.data);
     const createTransactionData = useSelector((state) => state.createTransactionData);
 
     const {
@@ -56,8 +57,10 @@ function CreateTransaction({showModal, transactionData, handleCloseModal}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUsersAction());
-    }, [dispatch]);
+        if(data.currentUser){
+            dispatch(getUsersAction());
+        }
+    }, [data.currentUser?.id]);
 
     const createTransaction = (data) => {
         dispatch(createTransactionAction(data.recipient[0].name, data.amount));
@@ -142,6 +145,7 @@ function CreateTransaction({showModal, transactionData, handleCloseModal}) {
 
 const mapStateToProps = (state) => {
     return {
+        data: state.data,
         createTransactionData: state.createTransactionData,
     };
 };

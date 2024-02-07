@@ -25,8 +25,13 @@ function Data() {
 
     useEffect(() => {
         dispatch(getCurrentUserAction());
-        dispatch(getTransactionsAction());
     }, [dispatch]);
+
+    useEffect(() => {
+        if(data.currentUser){
+            dispatch(getTransactionsAction());
+        }
+    }, [data.currentUser?.id]);
 
     useEffect(() => {
         if (data.transactions) {
