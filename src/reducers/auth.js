@@ -12,6 +12,7 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isSubmitting: true,
+                error: null,
             };
         }
         case actionTypes.AUTH_CHECK_SUCCESS: {
@@ -19,7 +20,6 @@ export default function auth(state = INIT_STATE, action) {
                 ...state,
                 isSubmitting: false,
                 isLoggedIn: action.payload.isLoggedIn,
-                error: null,
             };
         }
         case actionTypes.AUTH_CHECK_FAILURE: {
@@ -34,6 +34,7 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isSubmitting: true,
+                error: null,
             };
         }
         case actionTypes.REGISTER_SUCCESS: {
@@ -41,7 +42,6 @@ export default function auth(state = INIT_STATE, action) {
                 ...state,
                 isSubmitting: false,
                 isLoggedIn: true,
-                error: null,
             };
         }
         case actionTypes.REGISTER_FAILURE: {
@@ -55,6 +55,7 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isSubmitting: true,
+                error: null,
             };
         }
         case actionTypes.LOGIN_SUCCESS: {
@@ -62,7 +63,6 @@ export default function auth(state = INIT_STATE, action) {
                 ...state,
                 isSubmitting: false,
                 isLoggedIn: true,
-                error: null,
             };
         }
         case actionTypes.LOGIN_FAILURE: {
@@ -76,6 +76,7 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isSubmitting: true,
+                error: null,
             };
         }
         case actionTypes.LOGOUT_SUCCESS: {
@@ -83,7 +84,6 @@ export default function auth(state = INIT_STATE, action) {
                 ...state,
                 isSubmitting: false,
                 isLoggedIn: false,
-                error: null,
             };
         }
         case actionTypes.LOGOUT_FAILURE: {
