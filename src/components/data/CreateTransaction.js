@@ -129,6 +129,7 @@ function CreateTransaction({showModal, transactionData, handleCloseModal}) {
                                 labelText={"Amount"}
                                 type="number"
                                 min="0"
+                                defaultValue={transactionData.amount}
                                 isInvalid={!!errors.amount}
                                 onChange={field.onChange}
                                 errorMessage={getAmountErrorMessage()}
