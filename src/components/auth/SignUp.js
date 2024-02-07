@@ -1,10 +1,11 @@
 import {connect, useSelector, useDispatch} from "react-redux";
-import {useForm} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {registerAction} from "../../actions/auth";
+import FormControl from "../shared/FormControl";
 
 const schema = yup.object({
     username: yup.string().required("Name is required"),
@@ -18,9 +19,9 @@ const schema = yup.object({
 
 function SignUp() {
     const {
-        register,
         formState: {errors},
         handleSubmit,
+        control,
     } = useForm({
         resolver: yupResolver(schema),
     });
@@ -34,26 +35,58 @@ function SignUp() {
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
             <h2>Sign Up</h2>
-            <Form.Group className="mb-3" controlId="formUsername">
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" {...register("username")} isInvalid={!!errors.username} />
-                <Form.Control.Feedback type="invalid">{errors.username?.message}</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="text" {...register("email")} isInvalid={!!errors.email} />
-                <Form.Control.Feedback type="invalid">{errors.email?.message}</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" {...register("password")} isInvalid={!!errors.password} />
-                <Form.Control.Feedback type="invalid">{errors.password?.message}</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formConfirmPassword">
-                <Form.Label>Confirm password</Form.Label>
-                <Form.Control type="password" {...register("confirmPassword")} isInvalid={!!errors.confirmPassword} />
-                <Form.Control.Feedback type="invalid">{errors.confirmPassword?.message}</Form.Control.Feedback>
-            </Form.Group>
+            <Controller
+                control={control}
+                name="username"
+                render={({field}) => (
+                    <FormControl
+                        labelText={"Name"}
+                        type="text"
+                        isInvalid={!!errors.username}
+                        onChange={field.onChange}
+                        errorMessage={errors.username?.message}
+                    />
+                )}
+            />
+            <Controller
+                control={control}
+                name="email"
+                render={({field}) => (
+                    <FormControl
+                        labelText={"Email"}
+                        type="text"
+                        isInvalid={!!errors.email}
+                        onChange={field.onChange}
+                        errorMessage={errors.email?.message}
+                    />
+                )}
+            />
+            <Controller
+                control={control}
+                name="password"
+                render={({field}) => (
+                    <FormControl
+                        labelText={"Password"}
+                        type="password"
+                        isInvalid={!!errors.password}
+                        onChange={field.onChange}
+                        errorMessage={errors.password?.message}
+                    />
+                )}
+            />
+            <Controller
+                control={control}
+                name="confirmPassword"
+                render={({field}) => (
+                    <FormControl
+                        labelText={"Confirm password"}
+                        type="password"
+                        isInvalid={!!errors.confirmPassword}
+                        onChange={field.onChange}
+                        errorMessage={errors.confirmPassword?.message}
+                    />
+                )}
+            />
             <Button variant="primary" type="submit" disabled={auth.isSubmitting}>
                 Submit
             </Button>

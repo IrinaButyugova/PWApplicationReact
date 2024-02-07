@@ -11,6 +11,7 @@ import {getUsersAction, createTransactionAction} from "../../actions/transaction
 import ErrorMessage from "../shared/ErrorMessage";
 import SuccessMessage from "../shared/SuccessMessage";
 import Loading from "../shared/Loading";
+import FormControl from "../shared/FormControl";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 const RECIPIENT_ERROR_MESSAGE = "Recipient is required";
@@ -120,11 +121,20 @@ function CreateTransaction({showModal, transactionData, handleCloseModal}) {
                         />
                         <Form.Control.Feedback type="invalid">{getRecipientErrorMessage()}</Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formAmount">
-                        <Form.Label>Amount</Form.Label>
-                        <Form.Control type="number" min="0" {...register("amount")} isInvalid={!!errors.amount} />
-                        <Form.Control.Feedback type="invalid">{getAmountErrorMessage()}</Form.Control.Feedback>
-                    </Form.Group>
+                    <Controller
+                        control={control}
+                        name="amount"
+                        render={({field}) => (
+                            <FormControl
+                                labelText={"Amount"}
+                                type="number"
+                                min="0"
+                                isInvalid={!!errors.amount}
+                                onChange={field.onChange}
+                                errorMessage={getAmountErrorMessage()}
+                            />
+                        )}
+                    />
                 </Form>
             </Modal.Body>
             <Modal.Footer>
