@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import DatePicker from "react-datepicker";
 import FormControl from "../shared/FormControl";
+import FormDatePicker from "../shared/FormDatePicker";
 import "./filterForm.css";
 
 function FilterForm({handleFilter}) {
@@ -16,7 +16,6 @@ function FilterForm({handleFilter}) {
         endAmount: "",
     };
     const [filter, setFilter] = useState(INIT_FILTER);
-    const dateFormat = "dd.MM.yyyy";
 
     const handleClean = () => {
         setFilter(INIT_FILTER);
@@ -27,26 +26,16 @@ function FilterForm({handleFilter}) {
         <Form>
             <Row>
                 <Col sm="6">
-                    <Form.Group className="mb-3">
-                        <Form.Label>Date from</Form.Label>
-                        <DatePicker
-                            className="form-control"
-                            selected={filter.startDate}
-                            dateFormat={dateFormat}
-                            onChange={(value) => setFilter({...filter, startDate: value})}
-                        />
-                    </Form.Group>
+                    <FormDatePicker
+                        selected={filter.startDate}
+                        onChange={(value) => setFilter({...filter, startDate: value})}
+                    />
                 </Col>
                 <Col sm="6">
-                    <Form.Group className="mb-3">
-                        <Form.Label>Date To</Form.Label>
-                        <DatePicker
-                            className="form-control"
-                            selected={filter.endDate}
-                            dateFormat={dateFormat}
-                            onChange={(value) => setFilter({...filter, endDate: value})}
-                        />
-                    </Form.Group>
+                    <FormDatePicker
+                        selected={filter.endDate}
+                        onChange={(value) => setFilter({...filter, endDate: value})}
+                    />
                 </Col>
             </Row>
             <Row>
