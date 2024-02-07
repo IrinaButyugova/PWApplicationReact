@@ -1,10 +1,10 @@
 import {useState} from "react";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FormControl from "../shared/FormControl";
 import FormDatePicker from "../shared/FormDatePicker";
+import PWButton from "../shared/PWButton";
 import "./filterForm.css";
 
 function FilterForm({handleFilter}) {
@@ -68,13 +68,13 @@ function FilterForm({handleFilter}) {
             </Row>
             <Row>
                 <Col sm="6">
-                    <Button variant="primary" onClick={() => handleFilter(filter)}>
+                    <PWButton type="button" onClick={() => handleFilter(filter)}>
                         Filter
-                    </Button>
+                    </PWButton>
                     &nbsp;
-                    <Button variant="primary" onClick={handleClean}>
+                    <PWButton type="button" onClick={handleClean}>
                         Clean
-                    </Button>
+                    </PWButton>
                 </Col>
             </Row>
         </Form>

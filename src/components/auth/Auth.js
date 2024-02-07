@@ -1,11 +1,11 @@
 import {useState} from "react";
 import {connect, useSelector, useDispatch} from "react-redux";
-import Button from "react-bootstrap/Button";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import {logoutAction} from "../../actions/auth";
 import ErrorMessage from "../shared/ErrorMessage";
 import Loading from "../shared/Loading";
+import PWButton from "../shared/PWButton";
 
 function Auth() {
     const [signIn, setSignIn] = useState(true);
@@ -30,21 +30,17 @@ function Auth() {
             <ErrorMessage errorMessage={auth.error}></ErrorMessage>
 
             {auth.isLoggedIn ? (
-                <Button variant="primary" onClick={handleLogout} disabled={auth.isSubmitting}>
+                <PWButton onClick={handleLogout} disabled={auth.isSubmitting}>
                     Logout
-                </Button>
+                </PWButton>
             ) : signIn ? (
                 <div>
-                    <Button variant="primary" onClick={handleSignUp}>
-                        Sign up
-                    </Button>
+                    <PWButton onClick={handleSignUp}>Sign up</PWButton>
                     <SignIn></SignIn>
                 </div>
             ) : (
                 <div>
-                    <Button variant="primary" onClick={handleSignIn}>
-                        Sign in
-                    </Button>
+                    <PWButton onClick={handleSignIn}>Sign in</PWButton>
                     <SignUp></SignUp>
                 </div>
             )}

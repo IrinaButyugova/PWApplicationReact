@@ -3,7 +3,6 @@ import {connect, useSelector, useDispatch} from "react-redux";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import {Typeahead} from "react-bootstrap-typeahead";
@@ -12,6 +11,7 @@ import ErrorMessage from "../shared/ErrorMessage";
 import SuccessMessage from "../shared/SuccessMessage";
 import Loading from "../shared/Loading";
 import FormControl from "../shared/FormControl";
+import PWButton from "../shared/PWButton";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 const RECIPIENT_ERROR_MESSAGE = "Recipient is required";
@@ -58,7 +58,7 @@ function CreateTransaction({showModal, transactionData, handleCloseModal}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(data.currentUser){
+        if (data.currentUser) {
             dispatch(getUsersAction());
         }
     }, [data.currentUser?.id]);
@@ -138,16 +138,12 @@ function CreateTransaction({showModal, transactionData, handleCloseModal}) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => handleCloseModal()}>
+                <PWButton variant="secondary" onClick={() => handleCloseModal()}>
                     Close
-                </Button>
-                <Button
-                    variant="primary"
-                    onClick={handleSubmit(createTransaction)}
-                    disabled={createTransactionData.isLoading}
-                >
+                </PWButton>
+                <PWButton onClick={handleSubmit(createTransaction)} disabled={createTransactionData.isLoading}>
                     Create
-                </Button>
+                </PWButton>
             </Modal.Footer>
         </Modal>
     );

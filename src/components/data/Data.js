@@ -5,11 +5,11 @@ import {FaArrowUp, FaArrowDown} from "react-icons/fa";
 import {getCurrentUserAction, getTransactionsAction} from "../../actions/data";
 import ErrorMessage from "../shared/ErrorMessage";
 import CreateTransaction from "./CreateTransaction";
-import Button from "react-bootstrap/esm/Button";
 import {cleanAction} from "../../actions/transactionCreation";
 import FilterForm from "./FilterForm";
 import * as transactionsService from "../../services/transactions.service";
 import Loading from "../shared/Loading";
+import PWButton from "../shared/PWButton";
 
 function Data() {
     const [showModal, setShowModal] = useState(false);
@@ -28,7 +28,7 @@ function Data() {
     }, [dispatch]);
 
     useEffect(() => {
-        if(data.currentUser){
+        if (data.currentUser) {
             dispatch(getTransactionsAction());
         }
     }, [data.currentUser?.id]);
@@ -92,9 +92,9 @@ function Data() {
             <h4 className="mb-3">
                 {data.currentUser?.name} <br /> balance {data.currentUser?.balance.toFixed(2)}
             </h4>
-            <Button className="mb-3" variant="primary" onClick={handleShowModal}>
-                Create transaction
-            </Button>
+            <div className="mb-3">
+                <PWButton onClick={handleShowModal}>Create transaction</PWButton>
+            </div>
             <CreateTransaction
                 showModal={showModal}
                 transactionData={transactionData}
@@ -105,26 +105,26 @@ function Data() {
                 <thead>
                     <tr>
                         <th>
-                            <Button variant="link" onClick={() => handleSort(transactionsService.sortColumns.DATE)}>
+                            <PWButton variant="link" onClick={() => handleSort(transactionsService.sortColumns.DATE)}>
                                 Date
-                            </Button>
+                            </PWButton>
                             {sortColumn === transactionsService.sortColumns.DATE &&
                                 (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
                         <th>
-                            <Button
+                            <PWButton
                                 variant="link"
                                 onClick={() => handleSort(transactionsService.sortColumns.USER_NAME)}
                             >
                                 Correspondent Name
-                            </Button>
+                            </PWButton>
                             {sortColumn === transactionsService.sortColumns.USER_NAME &&
                                 (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
                         <th>
-                            <Button variant="link" onClick={() => handleSort(transactionsService.sortColumns.AMOUNT)}>
+                            <PWButton variant="link" onClick={() => handleSort(transactionsService.sortColumns.AMOUNT)}>
                                 Amount
-                            </Button>
+                            </PWButton>
                             {sortColumn === transactionsService.sortColumns.AMOUNT &&
                                 (sortOrder === transactionsService.sortOrders.ASC ? <FaArrowUp /> : <FaArrowDown />)}
                         </th>
@@ -140,9 +140,9 @@ function Data() {
                             <td>{transaction.amount.toFixed(2)}</td>
                             <td>{transaction.balance.toFixed(2)}</td>
                             <td>
-                                <Button onClick={() => handleRepeat(transaction.username, transaction.amount)}>
+                                <PWButton onClick={() => handleRepeat(transaction.username, transaction.amount)}>
                                     Repeat
-                                </Button>
+                                </PWButton>
                             </td>
                         </tr>
                     ))}

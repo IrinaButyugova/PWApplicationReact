@@ -1,11 +1,11 @@
 import {connect, useSelector, useDispatch} from "react-redux";
 import {useForm, Controller} from "react-hook-form";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {loginAction} from "../../actions/auth";
 import FormControl from "../shared/FormControl";
+import PWButton from "../shared/PWButton";
 
 const schema = yup.object({
     email: yup.string().required("Email is required").email("Email is invalid"),
@@ -56,9 +56,9 @@ function SignIn() {
                     />
                 )}
             />
-            <Button variant="primary" type="submit" disabled={auth.isSubmitting}>
+            <PWButton type="submit" disabled={auth.isSubmitting}>
                 Submit
-            </Button>
+            </PWButton>
         </Form>
     );
 }
